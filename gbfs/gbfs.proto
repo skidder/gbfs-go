@@ -1,0 +1,100 @@
+syntax = "proto3";
+package skidder.gbfs;
+option java_package = "com.github.skidder.gbfs.proto";
+option go_package = "github.com/skidder/gbfs-go/gbfs/proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+message AutoDiscoveryMessage {
+  // Integer POSIX timestamp indicating the last time the data in this feed was updated
+  int64 last_updated = 1  [json_name="last_updated"];
+
+  // Timestamp indicating the last time the data in this feed was updated
+  google.protobuf.Timestamp last_updated_timestamp = 2 [json_name="last_updated_timestamp"];
+  
+  // Integer representing the number of seconds before the data in this feed will be updated again (0 if the data should always be refreshed)
+  int64 ttl = 3  [json_name="ttl"];
+
+  // Number of seconds before the data in this feed will be updated again (0 if the data should always be refreshed)
+  google.protobuf.Duration ttl_duration = 4  [json_name="ttl_duration"];
+
+  // Languages supported by feeds
+  map<string, LanguageData> data = 5 [json_name="data"];
+
+  message LanguageData {
+    repeated Feed feeds = 1  [json_name="feeds"];
+  }
+
+  message Feed {
+    string name = 1  [json_name="name"];
+    string url = 2  [json_name="url"];
+  }
+}
+
+message StationStatusMessage {
+  // Integer POSIX timestamp indicating the last time the data in this feed was updated
+  int64 last_updated = 1  [json_name="last_updated"];
+
+  // Timestamp indicating the last time the data in this feed was updated
+  google.protobuf.Timestamp last_updated_timestamp = 2 [json_name="last_updated_timestamp"];
+  
+  // Integer representing the number of seconds before the data in this feed will be updated again (0 if the data should always be refreshed)
+  int64 ttl = 3  [json_name="ttl"];
+
+  // Number of seconds before the data in this feed will be updated again (0 if the data should always be refreshed)
+  google.protobuf.Duration ttl_duration = 4  [json_name="ttl_duration"];
+
+  // Stations
+  Stations data = 5 [json_name="data"];
+
+  message Stations {
+    repeated Station stations = 1  [json_name="stations"];
+  }
+
+  message Station {
+    string station_id = 1  [json_name="station_id"];
+    int64 num_bikes_available = 2 [json_name="num_bikes_available"];
+    int64 num_bikes_disabled = 3 [json_name="num_bikes_disabled"];
+    int64 num_docks_available = 4 [json_name="num_docks_available"];
+    int64 num_docks_disabled = 5 [json_name="num_docks_disabled"];
+    int64 is_installed = 6 [json_name="is_installed"];
+    int64 is_renting = 7 [json_name="is_renting"];
+    int64 is_returning = 8 [json_name="is_returning"];
+    int64 last_reported = 9 [json_name="last_reported"];
+    google.protobuf.Timestamp last_reported_timestamp = 10 [json_name="last_reported_timestamp"];
+  }
+}
+
+message StationInformationMessage {
+  // Integer POSIX timestamp indicating the last time the data in this feed was updated
+  int64 last_updated = 1  [json_name="last_updated"];
+
+  // Timestamp indicating the last time the data in this feed was updated
+  google.protobuf.Timestamp last_updated_timestamp = 2 [json_name="last_updated_timestamp"];
+  
+  // Integer representing the number of seconds before the data in this feed will be updated again (0 if the data should always be refreshed)
+  int64 ttl = 3  [json_name="ttl"];
+
+  // Number of seconds before the data in this feed will be updated again (0 if the data should always be refreshed)
+  google.protobuf.Duration ttl_duration = 4  [json_name="ttl_duration"];
+
+  // Stations
+  Stations data = 5 [json_name="data"];
+
+  message Stations {
+    repeated Station stations = 1  [json_name="stations"];
+  }
+
+  message Station {
+    string station_id = 1  [json_name="station_id"];
+    string name = 2 [json_name="name"];
+    string short_name = 3 [json_name="short_name"];
+    double lat = 4 [json_name="lat"];
+    double lon = 5 [json_name="lon"];
+    int64 region_id = 6 [json_name="region_id"];
+    repeated string rental_methods = 7 [json_name="rental_methods"];
+    int64 capacity = 8 [json_name="capacity"];
+    string rental_url = 9 [json_name="rental_url"];
+  }
+}
+
