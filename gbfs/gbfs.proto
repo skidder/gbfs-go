@@ -5,6 +5,12 @@ option go_package = "github.com/skidder/gbfs-go/gbfs/proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 
+message CompleteGBFSMessage {
+  AutoDiscoveryMessage auto_discovery_message = 1;
+  StationStatusMessage station_status_message = 2;
+  StationInformationMessage station_information_message = 3;
+}
+
 message AutoDiscoveryMessage {
   // Integer POSIX timestamp indicating the last time the data in this feed was updated
   int64 last_updated = 1  [json_name="last_updated"];
