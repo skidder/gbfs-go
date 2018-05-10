@@ -68,6 +68,7 @@ message StationStatusMessage {
     int64 is_returning = 8 [json_name="is_returning"];
     int64 last_reported = 9 [json_name="last_reported"];
     google.protobuf.Timestamp last_reported_timestamp = 10 [json_name="last_reported_timestamp"];
+    int64 num_ebikes_available = 11 [json_name="num_ebikes_available"];
   }
 }
 
